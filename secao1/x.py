@@ -8,27 +8,39 @@ class MyWindow(QWidget):
         super().__init__()
         self.setWindowTitle("11_SpinBox")
         self.create_widgets()
-        self.label_result = QLabel("resultado")
-    def create_widgets(self):
-
-        self.combo = QComboBox()
-        self.combo.currentTextChanged.connect(self.combo_select)
-        self.combo.addItem("Mussarela")
-        sabores = ['Calabresa', 'Portuguesa', 'Alho']
-        self.combo.addItems(sabores)
-
         
-        self.label2 = QLabel("Escolha uma pizza")
+    def create_widgets(self):
+        self.table = QTableWidget()
+        self.table.setRowCount(10)
+        self.table.setColumnCount(4)
 
-        hbox = QHBoxLayout()
-        hbox.addWidget(self.label2)
-        hbox.addWidget(self.combo)
-        hbox.addWidget(self.label_result)
-        self.setLayout(hbox)
+        self.table.setItem(0,0, QTableWidgetItem("Nome"))
+        self.table.setItem(0,1, QTableWidgetItem("Cidade"))
+        self.table.setItem(0,2, QTableWidgetItem("Idade"))
+        self.table.setItem(0,3, QTableWidgetItem("Profissao"))
 
-    def combo_select(self):
-        self.label_result.setText("dsf")
+        dados = {
+            "Joao": ["Sao Paulo", 25, "Engenheiro"],
+            "Pedro": ["Rio de Janeiro", 30, "Enfermeiro"],
+            "Maria": ["Minas gerais", 45, "Professora"],
+            "Fernanda": ["Porto Alegre", 22, "Estudante"],
+            "Gabriel": ["Sao Paulo", 28, "Entregador"],
+            "Paula": ["Fortaleza", 54, "Medica"],
+            "Hugo": ["Amazonas", 20, "Estagiario"],
+            "Caique": ["Santa Catarina", 36, "Mecanico"],
+            "Joao2": ["Goias", 28, "Desempregado"]
+        }
+        linha = 1
+        for pessoa in dados:
+            self.table.setItem(linha, 0, QTableWidgetItem(pessoa))
+            self.table.setItem(linha, 1, QTableWidgetItem(dados[pessoa][0]))
+            self.table.setItem(linha, 2, QTableWidgetItem(str(dados[pessoa][1])))
+            self.table.setItem(linha, 3, QTableWidgetItem(dados[pessoa][2]))
+            linha +=1
 
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.table)
+        self.setLayout(vbox)
 
 app = QApplication(sys.argv)
 window = MyWindow()
