@@ -18,21 +18,9 @@ class MyWindow(QWidget):
         table.setItem(0, 2, QTableWidgetItem("Idade"))
         table.setItem(0, 3, QTableWidgetItem("Profissao"))
 
-        table.setItem(1, 0, QTableWidgetItem("Thiago"))
-        table.setItem(1, 1, QTableWidgetItem("Parana"))
-        table.setItem(1, 2, QTableWidgetItem("25"))
-        table.setItem(1, 3, QTableWidgetItem("Pedreiro"))
-
         dados = {
             "Joao": ["Sao Paulo", 25, "Engenheiro"],
             "Pedro": ["Rio de Janeiro", 30, "Enfermeiro"],
-            "Maria": ["Minas gerais", 45, "Professora"],
-            "Fernanda": ["Porto Alegre", 22, "Estudante"],
-            "Gabriel": ["Sao Paulo", 28, "Entregador"],
-            "Paula": ["Fortaleza", 54, "Medica"],
-            "Hugo": ["Amazonas", 20, "Estagiario"],
-            "Caique": ["Santa Catarina", 36, "Mecanico"],
-            "Joao2": ["Goias", 28, "Desempregado"]
         }
         linha = 2
         for pessoa in dados:
