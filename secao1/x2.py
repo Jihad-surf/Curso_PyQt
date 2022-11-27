@@ -1,11 +1,15 @@
+import sqlite3
 
-dados = {
-    "Joao": ["Sao Paulo", 25, "Engenheiro"],
-    "Pedro": ["Rio de Janeiro", 30, "Enfermeiro"],
-    "Maria": ["Minas gerais", 45, "Professora"],
-    "Fernanda": ["Porto Alegre", 22, "Estudante"],
-    "Gabriel": ["Sao Paulo", 28, "Entregador"]
-}
+try:
+    banco = sqlite3.connect('pedidos.db')
+    cursor = banco.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS teste(
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        NAME TEXT NOT NULL
+    )''')
+    cursor.execute("INSERT INTO teste VALUES(?, ?);",(None, "Jihad"))
+    banco.commit()
+    banco.close()
 
-for chave in dados:
-    print(f'Chave: {chave} ---- valor:{dados[chave]} --- primeiro valor: {dados[chave][0]}')
+except sqlite3.Error as erro:
+    print(erro)

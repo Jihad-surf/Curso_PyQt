@@ -9,14 +9,15 @@ class MyWindow(QWidget):
         self.create_widgets()
 
     def create_widgets(self):
-        table = QTableWidget()
-        table.setRowCount(10)
-        table.setColumnCount(4)
+        self.table = QTableWidget()
+        dell = QPushButton("Dell", clicked= lambda: self.del_row())
+        self.table.setRowCount(10)
+        self.table.setColumnCount(4)
 
-        table.setItem(0, 0, QTableWidgetItem("Nome"))
-        table.setItem(0, 1, QTableWidgetItem("Cidade"))
-        table.setItem(0, 2, QTableWidgetItem("Idade"))
-        table.setItem(0, 3, QTableWidgetItem("Profissao"))
+        self.table.setItem(0, 0, QTableWidgetItem("Nome"))
+        self.table.setItem(0, 1, QTableWidgetItem("Cidade"))
+        self.table.setItem(0, 2, QTableWidgetItem("Idade"))
+        self.table.setItem(0, 3, QTableWidgetItem("Profissao"))
 
         dados = {
             "Joao": ["Sao Paulo", 25, "Engenheiro"],
@@ -24,18 +25,20 @@ class MyWindow(QWidget):
         }
         linha = 2
         for pessoa in dados:
-            table.setItem(linha, 0, QTableWidgetItem(pessoa))
-            table.setItem(linha, 1, QTableWidgetItem(dados[pessoa][0]))
-            table.setItem(linha, 2, QTableWidgetItem(str(dados[pessoa][1])))
-            table.setItem(linha, 3, QTableWidgetItem(dados[pessoa][2]))
+            self.table.setItem(linha, 0, QTableWidgetItem(pessoa))
+            self.table.setItem(linha, 1, QTableWidgetItem(dados[pessoa][0]))
+            self.table.setItem(linha, 2, QTableWidgetItem(str(dados[pessoa][1])))
+            self.table.setItem(linha, 3, QTableWidgetItem(dados[pessoa][2]))
             linha += 1
                 
 
         vbox = QVBoxLayout()
-        vbox.addWidget(table)
+        vbox.addWidget(self.table)
+        vbox.addWidget(dell)
         self.setLayout(vbox)
 
-
+    def del_row(self):
+        print(self.table.currentRow())
 
 app = QApplication(sys.argv)
 window = MyWindow()
