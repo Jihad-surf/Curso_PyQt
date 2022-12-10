@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1277</width>
-    <height>851</height>
+    <width>1275</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gerenciador Pizzaria</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>1251</width>
+      <x>0</x>
+      <y>0</y>
+      <width>1261</width>
       <height>831</height>
      </rect>
     </property>
@@ -31,17 +31,17 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab_pedidos">
+    <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Pedidos</string>
+      <string>Pedidos em Andamento</string>
      </attribute>
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1001</width>
-        <height>771</height>
+        <width>1071</width>
+        <height>791</height>
        </rect>
       </property>
       <column>
@@ -56,17 +56,22 @@
       </column>
       <column>
        <property name="text">
-        <string>Endereco</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
         <string>Observacao</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Valor total</string>
+        <string>Rua</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Numero</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Bairro</string>
        </property>
       </column>
       <column>
@@ -75,44 +80,54 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="btn_pedidoNovo">
       <property name="geometry">
        <rect>
-        <x>1040</x>
+        <x>1090</x>
         <y>40</y>
         <width>151</width>
-        <height>51</height>
+        <height>81</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Novo Pedido</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="btn_pedidoFinalizado">
       <property name="geometry">
        <rect>
-        <x>1040</x>
-        <y>130</y>
+        <x>1090</x>
+        <y>170</y>
         <width>151</width>
-        <height>51</height>
+        <height>81</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Excluir Pedido</string>
+       <string>Pedido Finalizado</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_clientes">
+    <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Clientes</string>
+      <string>Historico de Pedidos</string>
      </attribute>
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1001</width>
-        <height>781</height>
+        <width>1071</width>
+        <height>791</height>
        </rect>
       </property>
       <column>
@@ -122,17 +137,27 @@
       </column>
       <column>
        <property name="text">
-        <string>Nome</string>
+        <string>Pizza</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Endereco</string>
+        <string>Observacao</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Cep</string>
+        <string>Rua</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Numero</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Bairro</string>
        </property>
       </column>
       <column>
@@ -140,31 +165,46 @@
         <string>Telefone</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+      </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="btn_consultarPedido">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1090</x>
         <y>40</y>
         <width>151</width>
-        <height>61</height>
+        <height>81</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Novo cliente</string>
+       <string>Consultar Pedido</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="btn_gerarRelatorio">
       <property name="geometry">
        <rect>
-        <x>1050</x>
-        <y>130</y>
+        <x>1090</x>
+        <y>170</y>
         <width>151</width>
-        <height>61</height>
+        <height>81</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Alterar dados</string>
+       <string>Gerar Relatorio</string>
       </property>
      </widget>
     </widget>

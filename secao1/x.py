@@ -1,11 +1,16 @@
 import requests
 
-cep = ''
+cep = '01153000'
 
-link = f'https://viacep.com.br/ws/{cep}/json/'
+try:
+    link = f'https://viacep.com.br/ws/{cep}/json/'
 
-requisicao = requests.get(link)
+    requisicao = requests.get(link)
 
-dic_requisicao = requisicao.json()
+    dic_requisicao = requisicao.json()
 
-print(dic_requisicao)
+    print(dic_requisicao)
+    print(dic_requisicao['bairro'])
+    print(dic_requisicao['logradouro'])
+except:
+    print('cep invalido')

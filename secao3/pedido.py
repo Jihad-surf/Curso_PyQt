@@ -10,14 +10,14 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 import requests
 import sqlite3
 
-class Pedido(object):
+class Novo_Pedido(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(503, 715)
+        Form.resize(529, 691)
         self.comboBox = QtWidgets.QComboBox(Form)
-        self.comboBox.setGeometry(QtCore.QRect(140, 30, 151, 31))
+        self.comboBox.setGeometry(QtCore.QRect(160, 30, 181, 31))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(10)
         self.comboBox.setFont(font)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
@@ -32,99 +32,68 @@ class Pedido(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
-        self.label_valor = QtWidgets.QLabel(Form)
-        self.label_valor.setGeometry(QtCore.QRect(90, 590, 171, 16))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_valor.setFont(font)
-        self.label_valor.setObjectName("label_valor")
         self.gridLayoutWidget = QtWidgets.QWidget(Form)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(90, 320, 261, 221))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.gridLayoutWidget.setFont(font)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(110, 340, 261, 161))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit_rua = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_3.setObjectName("label_3")
+        self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1)
+        self.label_6 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_6.setObjectName("label_6")
+        self.gridLayout.addWidget(self.label_6, 4, 0, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout.addWidget(self.label_5, 3, 0, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.gridLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout.addWidget(self.label_4, 2, 0, 1, 1)
+        self.lineEdit = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit.setObjectName("lineEdit")
+        self.gridLayout.addWidget(self.lineEdit, 0, 1, 1, 1)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.gridLayout.addWidget(self.lineEdit_2, 1, 1, 1, 1)
+        self.lineEdit_3 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_3.setObjectName("lineEdit_3")
+        self.gridLayout.addWidget(self.lineEdit_3, 2, 1, 1, 1)
+        self.lineEdit_4 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.gridLayout.addWidget(self.lineEdit_4, 3, 1, 1, 1)
+        self.lineEdit_5 = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.lineEdit_5.setObjectName("lineEdit_5")
+        self.gridLayout.addWidget(self.lineEdit_5, 4, 1, 1, 1)
+
+        self.observacao = QtWidgets.QTextEdit(Form)
+        self.observacao.setGeometry(QtCore.QRect(160, 515, 215, 35))
+        self.observacao.setPlaceholderText("Observacao...")
+
+        self.lb_total = QtWidgets.QLabel(Form)
+        self.lb_total.setGeometry(QtCore.QRect(140, 575, 251, 31))
         font = QtGui.QFont()
-        font.setPointSize(9)
-        self.lineEdit_rua.setFont(font)
-        self.lineEdit_rua.setObjectName("lineEdit_rua")
-        self.gridLayout.addWidget(self.lineEdit_rua, 1, 1, 1, 1)
-        self.label_rua = QtWidgets.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_rua.setFont(font)
-        self.label_rua.setObjectName("label_rua")
-        self.gridLayout.addWidget(self.label_rua, 1, 0, 1, 1)
-        self.label_numero = QtWidgets.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_numero.setFont(font)
-        self.label_numero.setObjectName("label_numero")
-        self.gridLayout.addWidget(self.label_numero, 2, 0, 1, 1)
-        self.lineEdit_numero = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.lineEdit_numero.setFont(font)
-        self.lineEdit_numero.setObjectName("lineEdit_numero")
-        self.gridLayout.addWidget(self.lineEdit_numero, 2, 1, 1, 1)
-        self.label_bairro = QtWidgets.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_bairro.setFont(font)
-        self.label_bairro.setObjectName("label_bairro")
-        self.gridLayout.addWidget(self.label_bairro, 3, 0, 1, 1)
-        self.label_cep = QtWidgets.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_cep.setFont(font)
-        self.label_cep.setObjectName("label_cep")
-        self.gridLayout.addWidget(self.label_cep, 0, 0, 1, 1)
-        self.lineEdit_bairro = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.lineEdit_bairro.setFont(font)
-        self.lineEdit_bairro.setObjectName("lineEdit_bairro")
-        self.gridLayout.addWidget(self.lineEdit_bairro, 3, 1, 1, 1)
-        self.lineEdit_cep = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.lineEdit_cep.setFont(font)
-        self.lineEdit_cep.setObjectName("lineEdit_cep")
-        self.gridLayout.addWidget(self.lineEdit_cep, 0, 1, 1, 1)
-        self.label_telefone = QtWidgets.QLabel(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_telefone.setFont(font)
-        self.label_telefone.setObjectName("label_telefone")
-        self.gridLayout.addWidget(self.label_telefone, 4, 0, 1, 1)
-        self.lineEdit_telefone = QtWidgets.QLineEdit(self.gridLayoutWidget)
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.lineEdit_telefone.setFont(font)
-        self.lineEdit_telefone.setObjectName("lineEdit_telefone")
-        self.gridLayout.addWidget(self.lineEdit_telefone, 4, 1, 1, 1)
+        font.setPointSize(10)
+        self.lb_total.setFont(font)
+        self.lb_total.setObjectName("lb_total")
         self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(150, 640, 141, 41))
+        self.pushButton.setGeometry(QtCore.QRect(140, 630, 181, 31))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(10)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.widget = QtWidgets.QWidget(Form)
-        self.widget.setGeometry(QtCore.QRect(120, 90, 191, 181))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.widget.setFont(font)
+        self.widget.setGeometry(QtCore.QRect(130, 110, 221, 171))
         self.widget.setObjectName("widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(12)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -156,47 +125,141 @@ class Pedido(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-        self.lineEdit_cep.textChanged.connect(self.cep)
+        # conectar as funcoes
+        self.lineEdit.textChanged.connect(self.pega_cep)
+
+        self.radioButton.toggled.connect(self.calcula_valor)
+        self.radioButton_2.toggled.connect(self.calcula_valor)
+        self.radioButton_3.toggled.connect(self.calcula_valor)
+        self.radioButton_4.toggled.connect(self.calcula_valor)
+        self.comboBox.currentTextChanged.connect(self.calcula_valor)
+
+        self.lineEdit_5.textChanged.connect(self.arruma_ddd)
+
+        self.pushButton.clicked.connect(lambda: self.criar_pedido(Form))
 
 
+    def arruma_ddd(self):
+        if len(self.lineEdit_5.text()) == 2 and '(' not in self.lineEdit_5.text():
+            self.lineEdit_5.setText(f'({self.lineEdit_5.text()})')
 
-    def cep(self):
-        cep = self.lineEdit_cep.text()
-        if len(cep) == 8: 
-            link = f'https://viacep.com.br/ws/{cep}/json/'
-            requisicao = requests.get(link)
-            dic_requisicao = requisicao.json()
 
-            if 'erro' in dic_requisicao:
-                self.lineEdit_rua.setText("CEP INVALIDO")
-                return
-            self.lineEdit_bairro.setText(dic_requisicao['bairro'])
-            self.lineEdit_rua.setText(dic_requisicao['logradouro'])
+    def calcula_valor(self):
+        pizza_valor = self.comboBox.currentText().split('-')[1]
+
+        borda_valor = 0
+        if self.radioButton.isChecked():
+            borda_valor = self.radioButton.text().split('-')[1]
+        if self.radioButton_2.isChecked():
+            borda_valor = self.radioButton_2.text().split('-')[1]
+        if self.radioButton_3.isChecked():
+            borda_valor = self.radioButton_3.text().split('-')[1]
+        if self.radioButton_4.isChecked():
+            borda_valor = self.radioButton_4.text().split('-')[1]
+        
+        valor = int(pizza_valor) + int(borda_valor)
+        self.lb_total.setText(f'Valor Total: R${valor}')
+
+
+    def pega_cep(self):
+        cep = self.lineEdit.text()
+
+        if len(cep) ==8:
+            try:
+                link = f'https://viacep.com.br/ws/{cep}/json/'
+
+                requisicao = requests.get(link)
+                dic_requisicao = requisicao.json()
+
+                self.lineEdit_2.setText(dic_requisicao['logradouro'])
+                self.lineEdit_4.setText(dic_requisicao['bairro'])
+
+            except:
+                self.lineEdit_2.setText("CEP Invalido")
+    
+
+    def criar_pedido(self, Form):
+        pizza_sabor = self.comboBox.currentText().split('-')[0]
+
+        borda_sabor = ''
+        if self.radioButton.isChecked():
+            borda_sabor = self.radioButton.text().split('-')[0]
+        if self.radioButton_2.isChecked():
+            borda_sabor = self.radioButton_2.text().split('-')[0]
+        if self.radioButton_3.isChecked():
+            borda_sabor = self.radioButton_3.text().split('-')[0]
+        if self.radioButton_4.isChecked():
+            borda_sabor = self.radioButton_4.text().split('-')[0]
+
+        pizza = pizza_sabor + ', borda: ' + borda_sabor
+        obs = self.observacao.toPlainText()
+        rua = self.lineEdit_2.text()
+        numero = self.lineEdit_3.text()
+        bairro = self.lineEdit_4.text()
+        telefone = self.lineEdit_5.text()
+        status = 'Nao finalizado'
+
+        try:
+            banco = sqlite3.connect('pizzaria.db')
+            cursor = banco.cursor()
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS pedidos(
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Pizza TEXT,
+                Observacao TEXT,
+                Rua TEXT,
+                Numero INTEGER,
+                Bairro TEXT,
+                Telefone TEXT,
+                Status TEXT
+            )
+            ''')
+            cursor.execute('''
+            INSERT INTO pedidos VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+            ''',(None, pizza, obs, rua, numero, bairro, telefone, status))
+            banco.commit()
+            banco.close()
+
+        except sqlite3.Error as erro:
+            print(erro)
+
+        Form.close()
+
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Cadastar Pedido"))
         self.comboBox.setItemText(0, _translate("Form", "Alho - 35"))
-        self.comboBox.setItemText(1, _translate("Form", "Atum - 45"))
-        self.comboBox.setItemText(2, _translate("Form", "Brocolis - 40"))
-        self.comboBox.setItemText(3, _translate("Form", "Bacon - 40"))
-        self.comboBox.setItemText(4, _translate("Form", "Baiana - 35"))
-        self.comboBox.setItemText(5, _translate("Form", "Calabresa - 35"))
-        self.comboBox.setItemText(6, _translate("Form", "Escarola - 40"))
-        self.comboBox.setItemText(7, _translate("Form", "Mussarela - 35"))
-        self.comboBox.setItemText(8, _translate("Form", "Marguerita - 40"))
-        self.comboBox.setItemText(9, _translate("Form", "Palmito - 45"))
-        self.comboBox.setItemText(10, _translate("Form", "Peperroni - 45"))
-        self.comboBox.setItemText(11, _translate("Form", "Portuguesa - 50"))
-        self.label_valor.setText(_translate("Form", "Valor Total:"))
-        self.label_rua.setText(_translate("Form", "Rua:"))
-        self.label_numero.setText(_translate("Form", "Numero"))
-        self.label_bairro.setText(_translate("Form", "Bairro:"))
-        self.label_cep.setText(_translate("Form", "Cep:"))
-        self.label_telefone.setText(_translate("Form", "Telefone:"))
+        self.comboBox.setItemText(1, _translate("Form", "Atum - 40"))
+        self.comboBox.setItemText(2, _translate("Form", "Calabresa -35"))
+        self.comboBox.setItemText(3, _translate("Form", "Calamu - 40"))
+        self.comboBox.setItemText(4, _translate("Form", "Catupity - 35"))
+        self.comboBox.setItemText(5, _translate("Form", "Mussarela - 35"))
+        self.comboBox.setItemText(6, _translate("Form", "Mortadela - 40"))
+        self.comboBox.setItemText(7, _translate("Form", "Marguerita - 30"))
+        self.comboBox.setItemText(8, _translate("Form", "Portuguesa - 45"))
+        self.comboBox.setItemText(9, _translate("Form", "Quatro Queijos - 50"))
+        self.comboBox.setItemText(10, _translate("Form", "Frango - 35"))
+        self.comboBox.setItemText(11, _translate("Form", "FrangoMu - 40"))
+        self.label_3.setText(_translate("Form", "Rua:"))
+        self.label_6.setText(_translate("Form", "Telefone:"))
+        self.label_2.setText(_translate("Form", "Cep:"))
+        self.label_5.setText(_translate("Form", "Bairro:"))
+        self.label_4.setText(_translate("Form", "Numero:"))
+        self.lb_total.setText(_translate("Form", "Valor Total:"))
         self.pushButton.setText(_translate("Form", "Criar Pedido"))
-        self.label.setText(_translate("Form", "Borda:"))
-        self.radioButton.setText(_translate("Form", "Catupiry - 10"))
-        self.radioButton_2.setText(_translate("Form", "Cheeder  - 8"))
+        self.label.setText(_translate("Form", "Bordas"))
+        self.radioButton.setText(_translate("Form", "Catupity - 10"))
+        self.radioButton_2.setText(_translate("Form", "Cheeder - 8"))
         self.radioButton_3.setText(_translate("Form", "Vulcao - 15"))
         self.radioButton_4.setText(_translate("Form", "Sem borda - 0"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Novo_Pedido()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec())
