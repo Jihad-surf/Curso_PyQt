@@ -10,7 +10,7 @@ class MyWindow(QWidget):
 
     def create_widgets(self):
         self.table = QTableWidget()
-        dell = QPushButton("Dell", clicked= lambda: self.del_row())
+        dell = QPushButton("Dell", clicked=  self.del_row)
         self.table.setRowCount(10)
         self.table.setColumnCount(4)
 

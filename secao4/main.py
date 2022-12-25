@@ -7,25 +7,83 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-from pedido import Novo_Pedido
-import sqlite3
+from novoPedido import Novo_Pedido
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1275, 850)
+        MainWindow.resize(1225, 774)
+        MainWindow.setStyleSheet("QWidget#centralwidget{\n"
+"background-color: rgb(0, 0, 0);\n"
+"}\n"
+"\n"
+"QTabWidget::tab-bar {\n"
+"    left:5px;\n"
+"    width:475\n"
+"}\n"
+"QTabBar::tab:selected {\n"
+"    border: 2px solid rgb(53, 75, 36);\n"
+"    border-top-left-radius: 8px;\n"
+"    border-top-right-radius: 8px;\n"
+"    background-color: rgb(0,255,0);\n"
+"    padding:5px;\n"
+"    font: bold 18px;\n"
+"}\n"
+"QTabBar::tab:!selected {\n"
+"    border: 2px solid rgb(100, 125, 100);\n"
+"    border-top-left-radius: 8px;\n"
+"    border-top-right-radius: 8px;\n"
+"    background-color: rgb(0,205,0);\n"
+"    padding:5px;\n"
+"    font: bold 16px;\n"
+"    margin-top:5px\n"
+"}\n"
+"\n"
+"\n"
+"QWidget#tab,QWidget#tab_2  {\n"
+"background-color: qlineargradient(spread:pad, x1:0.995, y1:0.534318, x2:0, y2:0.539, stop:0 rgba(7, 69, 16, 255), stop:1 rgba(34, 255, 82, 255));\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"background-color: rgba(255, 255, 255,225);\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    background-color: rgb(0, 255, 0);\n"
+"    border: 2px solid rgb(255, 255, 255);\n"
+"    border-radius:10px;\n"
+"    font: bold 15px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    border: 4px solid rgb(255,255,255)\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border: 5px solid rgb(255,255,255);\n"
+"    font:bold 17px;\n"
+"    \n"
+"    background-color: rgb(0, 170, 0);\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 0, 1261, 831))
+        self.tabWidget.setEnabled(True)
+        self.tabWidget.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.tabWidget.setFont(font)
+        self.tabWidget.setTabBarAutoHide(False)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.tab)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.tableWidget = QtWidgets.QTableWidget(self.tab)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 0, 1071, 791))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(7)
         self.tableWidget.setRowCount(0)
@@ -43,23 +101,29 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(6, item)
-        self.btn_pedidoNovo = QtWidgets.QPushButton(self.tab)
-        self.btn_pedidoNovo.setGeometry(QtCore.QRect(1090, 40, 151, 81))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.btn_pedidoNovo.setFont(font)
-        self.btn_pedidoNovo.setObjectName("btn_pedidoNovo")
+        self.horizontalLayout_2.addWidget(self.tableWidget)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.btn_criarPedido = QtWidgets.QPushButton(self.tab)
+        self.btn_criarPedido.setMinimumSize(QtCore.QSize(155, 75))
+        self.btn_criarPedido.setObjectName("btn_criarPedido")
+        self.verticalLayout.addWidget(self.btn_criarPedido)
+        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.verticalLayout.addItem(spacerItem)
         self.btn_pedidoFinalizado = QtWidgets.QPushButton(self.tab)
-        self.btn_pedidoFinalizado.setGeometry(QtCore.QRect(1090, 170, 151, 81))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.btn_pedidoFinalizado.setFont(font)
+        self.btn_pedidoFinalizado.setMinimumSize(QtCore.QSize(175, 75))
         self.btn_pedidoFinalizado.setObjectName("btn_pedidoFinalizado")
+        self.verticalLayout.addWidget(self.btn_pedidoFinalizado)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 400, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.tab_2)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.tableWidget_2 = QtWidgets.QTableWidget(self.tab_2)
-        self.tableWidget_2.setGeometry(QtCore.QRect(0, 0, 1071, 791))
+        self.tableWidget_2.setMinimumSize(QtCore.QSize(0, 0))
         self.tableWidget_2.setObjectName("tableWidget_2")
         self.tableWidget_2.setColumnCount(8)
         self.tableWidget_2.setRowCount(0)
@@ -79,32 +143,42 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setHorizontalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(7, item)
+        self.horizontalLayout_3.addWidget(self.tableWidget_2)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.btn_consultarPedido = QtWidgets.QPushButton(self.tab_2)
-        self.btn_consultarPedido.setGeometry(QtCore.QRect(1090, 40, 151, 81))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.btn_consultarPedido.setFont(font)
+        self.btn_consultarPedido.setMinimumSize(QtCore.QSize(155, 75))
         self.btn_consultarPedido.setObjectName("btn_consultarPedido")
+        self.verticalLayout_2.addWidget(self.btn_consultarPedido)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.verticalLayout_2.addItem(spacerItem2)
         self.btn_gerarRelatorio = QtWidgets.QPushButton(self.tab_2)
-        self.btn_gerarRelatorio.setGeometry(QtCore.QRect(1090, 170, 151, 81))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.btn_gerarRelatorio.setFont(font)
+        self.btn_gerarRelatorio.setMinimumSize(QtCore.QSize(175, 75))
         self.btn_gerarRelatorio.setObjectName("btn_gerarRelatorio")
+        self.verticalLayout_2.addWidget(self.btn_gerarRelatorio)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem3)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_2)
         self.tabWidget.addTab(self.tab_2, "")
+        self.horizontalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.btn_pedidoNovo.clicked.connect(self.novo_pedido)
+        # conectando funcoes
+        self.btn_criarPedido.clicked.connect(self.novo_pedido)
 
-        self.atualiza_pedidos()
-        
+    def novo_pedido(self):
+        dialog = QtWidgets.QDialog()
+        ui = Novo_Pedido()
+        ui.setupUi(dialog)
+        dialog.exec()
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Gerenciador Pizzaria"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Id"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -114,12 +188,12 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Rua"))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "Numero"))
-        item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Bairro"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Numero"))
         item = self.tableWidget.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Telefone"))
-        self.btn_pedidoNovo.setText(_translate("MainWindow", "Novo Pedido"))
+        self.btn_criarPedido.setText(_translate("MainWindow", "Criar Pedido"))
         self.btn_pedidoFinalizado.setText(_translate("MainWindow", "Pedido Finalizado"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Pedidos em Andamento"))
         item = self.tableWidget_2.horizontalHeaderItem(0)
@@ -131,9 +205,9 @@ class Ui_MainWindow(object):
         item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Rua"))
         item = self.tableWidget_2.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "Numero"))
-        item = self.tableWidget_2.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Bairro"))
+        item = self.tableWidget_2.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Numero"))
         item = self.tableWidget_2.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Telefone"))
         item = self.tableWidget_2.horizontalHeaderItem(7)
@@ -142,24 +216,6 @@ class Ui_MainWindow(object):
         self.btn_gerarRelatorio.setText(_translate("MainWindow", "Gerar Relatorio"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Historico de Pedidos"))
 
-
-    def novo_pedido(self):
-        dialog = QtWidgets.QDialog()
-        ui = Novo_Pedido()
-        ui.setupUi(dialog)
-        dialog.exec()
-        self.atualiza_pedidos()
-    
-
-    def atualiza_pedidos(self):
-        banco = sqlite3.connect('pizzaria.db')
-        cursor = banco.cursor()
-        cursor.execute("SELECT * FROM pedidos WHERE Status = 'Nao finalizado'")
-        dados = cursor.fetchall()
-        self.tableWidget.setRowCount(len(dados))
-        for i in range(len(dados)):
-            for j in range(7):
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados[i][j])))
 
 if __name__ == "__main__":
     import sys
