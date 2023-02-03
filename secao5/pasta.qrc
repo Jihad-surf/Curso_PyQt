@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="prefixo">
+    <file>images/pizza.png</file>
+    <file>images/delivery.png</file>
+    <file>images/emAberto.png</file>
+    <file>images/finalizados.png</file>
+    <file>images/money.png</file>
+    <file>images/finalizado_amarelo.png</file>
+    <file>images/money_amarelo.png</file>
+    <file>images/delivery_amarelo.png</file>
+    <file>images/emAberto_amarelo.png</file>
+  </qresource>
+</RCC>
