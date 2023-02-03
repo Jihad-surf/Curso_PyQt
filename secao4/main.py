@@ -8,6 +8,9 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from novoPedido import Novo_Pedido
+import dash
+import sqlite3
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -85,7 +88,7 @@ class Ui_MainWindow(object):
         font.setPointSize(9)
         self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(7)
+        self.tableWidget.setColumnCount(8)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -101,6 +104,8 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(7, item)
         self.horizontalLayout_2.addWidget(self.tableWidget)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
@@ -125,7 +130,7 @@ class Ui_MainWindow(object):
         self.tableWidget_2 = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidget_2.setMinimumSize(QtCore.QSize(0, 0))
         self.tableWidget_2.setObjectName("tableWidget_2")
-        self.tableWidget_2.setColumnCount(8)
+        self.tableWidget_2.setColumnCount(9)
         self.tableWidget_2.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(0, item)
@@ -143,6 +148,8 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setHorizontalHeaderItem(6, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_2.setHorizontalHeaderItem(7, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_2.setHorizontalHeaderItem(8, item)
         self.horizontalLayout_3.addWidget(self.tableWidget_2)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -169,12 +176,55 @@ class Ui_MainWindow(object):
 
         # conectando funcoes
         self.btn_criarPedido.clicked.connect(self.novo_pedido)
+        self.btn_pedidoFinalizado.clicked.connect(self.pedido_finalizado)
 
+        self.atualiza_pedidos()
+        self.atualiza_historico()
+    
+    def atualiza_historico(self):
+        banco = sqlite3.connect('secao4/pizzaria.db')
+        cursor = banco.cursor()
+        cursor.execute("SELECT * FROM pedidos")
+        dados = cursor.fetchall()
+        self.tableWidget_2.setRowCount(len(dados))
+        for i in range(len(dados)):
+            for j in range(9):
+                self.tableWidget_2.setItem(i,j, QtWidgets.QTableWidgetItem(str(dados[i][j])))
+
+    def pedido_finalizado(self):
+        try:
+            row = self.tableWidget.currentRow()
+            id = self.tableWidget.item(row,0).text()
+            banco = sqlite3.connect('secao4/pizzaria.db')
+            cursor = banco.cursor()
+            cursor.execute('''
+            UPDATE pedidos SET Status = 'Finalizado' WHERE Id = (?)        
+            ''',(id,))
+            banco.commit()
+            banco.close()
+            self.atualiza_pedidos()
+            self.atualiza_historico()
+        except:
+            print("Selecione uma linha")
+
+    def atualiza_pedidos(self):
+        banco = sqlite3.connect('secao4/pizzaria.db')
+        cursor = banco.cursor()
+        cursor.execute('''
+        SELECT Id, Pizza, Observacao, Rua, Bairro, Numero, Telefone, Valor_total FROM pedidos WHERE Status = 'Não Finalizado'
+        ''')
+        dados = cursor.fetchall()
+        self.tableWidget.setRowCount(len(dados))
+        for i in range(len(dados)):
+            for j in range(8):
+                self.tableWidget.setItem(i,j, QtWidgets.QTableWidgetItem(str(dados[i][j])))
+                
     def novo_pedido(self):
         dialog = QtWidgets.QDialog()
         ui = Novo_Pedido()
         ui.setupUi(dialog)
         dialog.exec()
+        self.atualiza_pedidos()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -193,6 +243,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Numero"))
         item = self.tableWidget.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Telefone"))
+        item = self.tableWidget.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "Valor Total"))
         self.btn_criarPedido.setText(_translate("MainWindow", "Criar Pedido"))
         self.btn_pedidoFinalizado.setText(_translate("MainWindow", "Pedido Finalizado"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Pedidos em Andamento"))
@@ -212,6 +264,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Telefone"))
         item = self.tableWidget_2.horizontalHeaderItem(7)
         item.setText(_translate("MainWindow", "Status"))
+        item = self.tableWidget_2.horizontalHeaderItem(8)
+        item.setText(_translate("MainWindow", "Valor Total"))
         self.btn_consultarPedido.setText(_translate("MainWindow", "Consultar Pedido"))
         self.btn_gerarRelatorio.setText(_translate("MainWindow", "Gerar Relatorio"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Historico de Pedidos"))

@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="images">
+    <file>delivery.png</file>
+    <file>emAberto.png</file>
+    <file>finalizados.png</file>
+    <file>money.png</file>
+    <file>pizza.png</file>
+  </qresource>
+</RCC>

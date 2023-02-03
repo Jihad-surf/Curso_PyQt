@@ -8,6 +8,7 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 import requests
+import sqlite3
 
 class Novo_Pedido(object):
     def setupUi(self, Form):
@@ -210,12 +211,64 @@ class Novo_Pedido(object):
         self.lineEdit_cep.textChanged.connect(self.pega_cep)
         self.lineEdit_tel.textChanged.connect(self.tel)
 
+        self.pushButton.clicked.connect(lambda: self.novo_pedido(Form))
+        
         self.comboBox.currentTextChanged.connect(self.calcula_valor)
         self.radioButton_catupiry.toggled.connect(self.calcula_valor)
         self.radioButton_cheeder.toggled.connect(self.calcula_valor)
         self.radioButton_semBorda.toggled.connect(self.calcula_valor)
         self.radioButton_vulcao.toggled.connect(self.calcula_valor)
 
+    def novo_pedido(self, Form):
+        pizza_sabor = self.comboBox.currentText().split('-')[0]
+
+        borda_sabor = ''
+        if self.radioButton_catupiry.isChecked():
+            borda_sabor = self.radioButton_catupiry.text().split('-')[0]
+        if self.radioButton_cheeder.isChecked():
+            borda_sabor = self.radioButton_cheeder.text().split('-')[0]
+        if self.radioButton_semBorda.isChecked():
+            borda_sabor = self.radioButton_semBorda.text().split('-')[0]
+        if self.radioButton_vulcao.isChecked():
+            borda_sabor = self.radioButton_vulcao.text().split('-')[0]
+
+        obs = self.observacao.toPlainText()
+        rua = self.lineEdit_rua.text()
+        numero = self.lineEdit_numero.text()
+        telefone = self.lineEdit_tel.text()
+        bairro = self.lineEdit_bairro.text()
+        status = 'Não Finalizado'
+        
+        valor = self.calcula_valor()
+
+        sabor = pizza_sabor + ' borda: '+ borda_sabor
+        try:
+            banco = sqlite3.connect('secao4/pizzaria.db')
+            cursor = banco.cursor()
+            cursor.execute('''
+            CREATE TABLE IF NOT EXISTS pedidos(
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                Pizza TEXT,
+                Observacao TEXT,
+                Rua TEXT,
+                Bairro TEXT,
+                Numero INTEGER,
+                Telefone TEXT,
+                Status TEXT,
+                Valor_total INTEGER
+            )
+            ''')
+            cursor.execute('''
+                INSERT INTO pedidos VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+            ''',(None, sabor, obs, rua, bairro, numero, telefone, status, valor))
+            banco.commit()
+            banco.close()
+
+        except sqlite3.Error as erro:
+            print(erro)
+
+        Form.close() 
+        
     def calcula_valor(self):
         pizza = self.comboBox.currentText()[-5:-3]
 
@@ -229,16 +282,16 @@ class Novo_Pedido(object):
         if self.radioButton_vulcao.isChecked():
             borda = self.radioButton_vulcao.text().split('-')[1].replace("R$",'').replace(",00",'')
         
-        self.label_valorTotal.setText(f'Valor Total: R${str(int(pizza) + int(borda))},00')
+        valor = str(int(pizza) + int(borda))
+        self.label_valorTotal.setText(f'Valor Total: R${valor},00')
 
+        return valor
 
     def tel(self):
         if len(self.lineEdit_tel.text()) ==2 and '(' not in self.lineEdit_tel.text():
             self.lineEdit_tel.setText(f'({self.lineEdit_tel.text()}) ')
         if len(self.lineEdit_tel.text()) ==3 and '(' in self.lineEdit_tel.text():
             self.lineEdit_tel.clear()
-        if len(self.lineEdit_tel.text()) == 10:
-            self.lineEdit_tel.setText(f'{self.lineEdit_tel.text()}-')
 
     def pega_cep(self): 
         cep = self.lineEdit_cep.text()
