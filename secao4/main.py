@@ -177,6 +177,7 @@ class Ui_MainWindow(object):
         # conectando funcoes
         self.btn_criarPedido.clicked.connect(self.novo_pedido)
         self.btn_pedidoFinalizado.clicked.connect(self.pedido_finalizado)
+        self.btn_gerarRelatorio.clicked.connect(self.open_dash)
 
         self.atualiza_pedidos()
         self.atualiza_historico()
@@ -218,7 +219,25 @@ class Ui_MainWindow(object):
         for i in range(len(dados)):
             for j in range(8):
                 self.tableWidget.setItem(i,j, QtWidgets.QTableWidgetItem(str(dados[i][j])))
-                
+    
+    def dados_tabela(self):
+        banco = sqlite3.connect('secao4/pizzaria.db')
+        cursor = banco.cursor()
+        cursor.execute("""
+        SELECT Id, Pizza, Valor_total FROM pedidos WHERE Status = "Não Finalizado"
+        """)
+        dados = cursor.fetchall()
+        return dados
+
+    def open_dash(self):
+        self.janela = QtWidgets.QMainWindow()
+        ui = dash.Ui_MainWindow()
+        ui.setupUi(self.janela)
+
+        dados = self.dados_tabela()
+        ui.inserir_dadosTabela(dados)
+        self.janela.show()
+
     def novo_pedido(self):
         dialog = QtWidgets.QDialog()
         ui = Novo_Pedido()

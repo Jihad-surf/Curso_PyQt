@@ -34,8 +34,8 @@ class Canvas_2(FigureCanvas):
         self.plot()
 
     def plot(self):
-        data = [7, 4, 2, 4, 5]
-        labels = ['Mussarela', 'Calabresa', 'Catupiry', 'D', 'E']
+        data = [7, 6, 2, 4, 5]
+        labels = ['Mussarela', 'Calabresa', 'Catupiry', 'Portuguesa', 'Toscana']
         self.axes.bar(labels, data, color='#ffdda0' ,  edgecolor='white')
         self.axes.set_xlabel('Sabor', color= '#ffffff')
         self.axes.set_ylabel('Quantidade', color= '#ffffff')
@@ -88,7 +88,7 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.frame)
         self.label_3.setMinimumSize(QtCore.QSize(65, 65))
         self.label_3.setMaximumSize(QtCore.QSize(65, 65))
-        self.label_3.setStyleSheet("border-image: url(images/emAberto.png);")
+        self.label_3.setStyleSheet("border-image: url(secao4/images/emAberto.png);")
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.gridLayout_2.addWidget(self.label_3, 0, 0, 2, 1)
@@ -149,7 +149,7 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.label_12, 0, 1, 1, 1)
         self.label_14 = QtWidgets.QLabel(self.frame_4)
         self.label_14.setMaximumSize(QtCore.QSize(65, 65))
-        self.label_14.setStyleSheet("border-image: url(images/delivery.png);")
+        self.label_14.setStyleSheet("border-image: url(secao4/images/delivery.png);")
         self.label_14.setText("")
         self.label_14.setObjectName("label_14")
         self.gridLayout_5.addWidget(self.label_14, 0, 0, 2, 1)
@@ -219,7 +219,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.frame_2)
         self.label_6.setMinimumSize(QtCore.QSize(65, 65))
         self.label_6.setMaximumSize(QtCore.QSize(65, 65))
-        self.label_6.setStyleSheet("border-image: url(images/finalizados.png);")
+        self.label_6.setStyleSheet("border-image: url(secao4/images/finalizados.png);")
         self.label_6.setText("")
         self.label_6.setObjectName("label_6")
         self.gridLayout_3.addWidget(self.label_6, 0, 0, 2, 1)
@@ -258,7 +258,7 @@ class Ui_MainWindow(object):
         self.label_9 = QtWidgets.QLabel(self.frame_3)
         self.label_9.setMinimumSize(QtCore.QSize(65, 65))
         self.label_9.setMaximumSize(QtCore.QSize(65, 65))
-        self.label_9.setStyleSheet("border-image: url(images/money.png);")
+        self.label_9.setStyleSheet("border-image: url(secao4/images/money.png);")
         self.label_9.setText("")
         self.label_9.setObjectName("label_9")
         self.gridLayout_4.addWidget(self.label_9, 0, 0, 2, 1)
@@ -318,11 +318,6 @@ class Ui_MainWindow(object):
         self.frame_8.setStyleSheet("background-color: rgba(0, 255, 0,0);\n")
                                    #"border: 1px solid rgba(255,255,255,150)")
 
-        # add o grafico
-        self.canvas = Canvas(self,15,15,15,30)
-        self.vert.addWidget(self.canvas)
-
-
         self.gridLayout.addWidget(self.frame_8, 4, 0, 1, 2)
         self.frame_7 = QtWidgets.QFrame(self.centralwidget)
         self.frame_7.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -330,25 +325,32 @@ class Ui_MainWindow(object):
         self.frame_7.setObjectName("frame_7")
         self.gridLayout.addWidget(self.frame_7, 3, 2, 2, 2)
         self.vert_2 = QtWidgets.QVBoxLayout(self.frame_7)
-        
-        self.canvas_2 = Canvas_2()
-        self.vert_2.addWidget(self.canvas_2)
         self.frame_7.setStyleSheet("background-color: rgba(255, 255, 255,0);\n"
                                    "margin:10px")
+
+        self.canvas = Canvas(self, 10, 5, 4, 7)
+        self.vert.addWidget(self.canvas)
+
+        self.canvas_2 = Canvas_2()
+        self.vert_2.addWidget(self.canvas_2)
 
 
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setMinimumSize(QtCore.QSize(375, 0))
         self.label_2.setMaximumSize(QtCore.QSize(375, 16777215))
-        self.label_2.setStyleSheet("border-image: url(images/pizza.png);")
+        self.label_2.setStyleSheet("border-image: url(secao4/images/pizza.png);")
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 1, 4, 4, 1)
         MainWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def inserir_dadosTabela(self,dados):
+        for i in range(len(dados)):
+            for j in range(3):
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados[i][j])))
+            
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -368,9 +370,9 @@ class Ui_MainWindow(object):
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Row"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "New Column"))
-        item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Id"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Pizza"))
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Valor"))
 
